@@ -1,8 +1,11 @@
+import { Special } from '../special/special';
+
 export class Ingredient {
     uuid: string;
     amount: number;
     measurement: string;
     name: string;
+    special?: Special;
 }
 
 export class Direction {
@@ -18,7 +21,7 @@ export class Recipe {
         full: string;
         medium: string;
         small: string;
-    }
+    };
     servings: number;
     prepTime: number;
     cookTime: number;

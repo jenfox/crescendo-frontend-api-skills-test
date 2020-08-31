@@ -1,0 +1,48 @@
+<form #recipeForm="ngForm" (ngSubmit)="saveRecipe()" class="recipeForm">
+    <div *ngIf="saved" class="alert alert-success" role="alert">
+        Recipe Saved!
+    </div>
+    <h2>Add a New Recipe</h2>
+    <div class="section section-large">
+        <div class="form-group">
+            <label for="title">Recipe Title</label>
+            <input type="text" class="form-control" id="title" name="title" [(ngModel)]="recipe.title">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea type="text" class="form-control" id="description" name="description"
+                [(ngModel)]="recipe.description"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="ingredients">Ingredients</label>
+            <textarea type="text" class="form-control" id="ingredients" name="ingredients" [(ngModel)]="ingredients"
+                placeholder="enter each ingredient on its own line"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="directions">Directions</label>
+            <textarea type="text" class="form-control" id="directions" name="directions" [(ngModel)]="directions"
+                placeholder="enter each step on its own line"></textarea>
+        </div>
+    </div>
+    <div class="section section-small">
+        <div class="form-group">
+            <label for="prepTime">Prep Time</label>
+            <input type="text" class="form-control input-small" id="prepTime" name="prepTime"
+                [(ngModel)]="recipe.prepTime">
+        </div>
+        <div class="form-group">
+            <label for="cookTime">Cook Time</label>
+            <input type="text" class="form-control input-small" id="cookTime" name="cookTime"
+                [(ngModel)]="recipe.cookTime">
+        </div>
+        <div class="form-group">
+            <label for="servings">Servings</label>
+            <input type="text" class="form-control input-small" id="servings" name="servings"
+                [(ngModel)]="recipe.servings">
+        </div>
+    </div>
+    <div>
+        <button type="button" [routerLink]="['/']" class="btn btn-secondary">Back</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>

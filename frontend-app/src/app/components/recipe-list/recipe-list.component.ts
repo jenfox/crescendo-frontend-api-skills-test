@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from './../../services/recipe/recipe.service';
 import { Recipe } from 'src/app/services/recipe/recipe';
-import { ApiHost }  from  './../../services/config';
+import { ApiHost } from '../../config';
 
 @Component({
   selector: 'app-recipe-list',
@@ -20,7 +20,7 @@ export class RecipeListComponent implements OnInit {
       recipes => {
         this.recipes = recipes;
       }
-    )
+    );
   }
 
 }

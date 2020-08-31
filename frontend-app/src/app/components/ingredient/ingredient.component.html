@@ -1,0 +1,17 @@
+<span>
+    {{ingredient.amount}} {{ingredient.measurement}}
+    <span *ngIf="special;else notSpecial" class="special-ingredient" triggers="mouseenter:mouseleave" popoverTitle=""
+        [ngbPopover]="popContent" [closeDelay]="1500">
+        {{ingredient.name}}
+    </span>
+    <ng-template #notSpecial>
+        {{ingredient.name}}
+    </ng-template>
+</span>
+
+<ng-template #popContent>
+    <p class="special-title">{{special.type | titlecase }}! {{special.title}}</p>
+    <hr>
+    {{special.text}}
+    <a *ngIf="special.geo" href="{{makeGoogleMapUrl(special.geo)}}" target="_blank">directions</a>
+</ng-template>

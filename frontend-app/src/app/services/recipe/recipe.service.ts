@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Recipe } from './recipe';
-import { ApiHost } from './../config';
+import { ApiHost } from '../../config';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +19,11 @@ export class RecipeService {
     return this._http.get<Recipe[]>(ApiHost + '/recipes');
   }
 
-  add(recipe: Recipe): void {
+  post(recipe: Recipe): void {
     this._http.post(ApiHost + '/recipes', recipe).subscribe();
   }
 
-  update(recipe: Recipe): void {
+  put(recipe: Recipe): void {
     this._http.put(ApiHost + '/recipes' + '/' + recipe.uuid, recipe).subscribe();
   }
 

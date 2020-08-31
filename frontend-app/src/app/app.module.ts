@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +9,8 @@ import { RecipeListComponent } from './components/recipe-list/recipe-list.compon
 import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AddRecipeComponent } from './components/add-recipe/add-recipe.component';
+import { IngredientComponent } from './components/ingredient/ingredient.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -16,13 +18,15 @@ import { AddRecipeComponent } from './components/add-recipe/add-recipe.component
     RecipeListComponent,
     RecipeDetailComponent,
     PageNotFoundComponent,
-    AddRecipeComponent
+    AddRecipeComponent,
+    IngredientComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule,
+    FormsModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,7 +2,7 @@
 <div class="recipe-cards">
     <div class="recipe-card" *ngFor="let recipe of recipes" [routerLink]="['/detail', recipe.title]"
         [queryParams]="{uuid: recipe.uuid}">
-        <img src="{{apiHost}}/{{recipe.images.small}}">
+        <img *ngIf="recipe.images.small" src="{{apiHost}}/{{recipe.images.small}}">
         <p class="font-weight-bold">{{recipe.title}}</p>
         <p>{{recipe.description}}</p>
 

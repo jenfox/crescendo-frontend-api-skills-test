@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { takeUntil, map, switchMap } from 'rxjs/operators';
+import { takeUntil, map, switchMap, tap } from 'rxjs/operators';
 import { Recipe, Direction } from 'src/app/services/recipe/recipe';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, forkJoin, combineLatest, iif } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { RecipeService } from 'src/app/services/recipe/recipe.service';
-import { ApiHost } from './../../services/config';
+import { SpecialService } from 'src/app/services/special/special.service';
+import { ApiHost } from '../../config';
+import { Special } from 'src/app/services/special/special';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -14,37 +16,63 @@ import { ApiHost } from './../../services/config';
 export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   recipe: Recipe;
+  specials: Special[];
   apiHost = ApiHost;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private _activatedRoute: ActivatedRoute,
-    private _recipeService: RecipeService) { }
+              private _recipeService: RecipeService,
+              private _specialService: SpecialService) { }
 
   ngOnInit(): void {
-    this.getRecipeUuid()
+    combineLatest([this.getRecipe(), this.getSpecials()])
       .pipe(
         takeUntil(this.destroy$),
-        switchMap((recipeUuid: string) => this._recipeService.get(recipeUuid))
       ).subscribe(
-        (recipe: Recipe) => {
+        ([recipe, specials]) => {
           this.recipe = recipe;
+          this.specials = specials;
+
+          this.recipe.ingredients.forEach(
+            ingredient => {
+              ingredient.special = this.findSpecial(ingredient.uuid);
+            }
+          );
         }
       );
-
   }
 
   getRecipeUuid(): Observable<string> {
     return this._activatedRoute.queryParams.pipe(
-      map(params => params['uuid'])
-    )
+      map(params => params.uuid)
+    );
+  }
+
+  getRecipe(): Observable<Recipe> {
+    return this.getRecipeUuid()
+      .pipe(
+        switchMap((recipeUuid: string) => this._recipeService.get(recipeUuid))
+      );
+  }
+
+  getSpecials(): Observable<Special[]> {
+    return this._specialService.getAll();
+  }
+
+  findSpecial(ingredientUuid: string): Special {
+    return this.specials.find((special: Special) => {
+      if (special.ingredientId === ingredientUuid) {
+        return true;
+      }
+    });
   }
 
   isOptionalText(direction: Direction): string {
     return direction.optional ? '(Optional)' : '';
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.destroy$.next(true);
   }
 
