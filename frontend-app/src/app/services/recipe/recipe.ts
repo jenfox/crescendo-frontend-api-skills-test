@@ -12,7 +12,6 @@ export class Direction {
     instructions: string;
     optional: boolean;
 }
-
 export class Recipe {
     uuid: string;
     title: string;

@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
   templateUrl: './add-recipe.component.html',
   styleUrls: ['./add-recipe.component.sass']
 })
-export class AddRecipeComponent implements OnInit {
+export class AddRecipeComponent {
 
   recipe = new Recipe();
   ingredients: string;
@@ -16,39 +16,6 @@ export class AddRecipeComponent implements OnInit {
   saved = false;
 
   constructor(private _recipeService: RecipeService) { }
-
-  ngOnInit(): void {
-  }
-
-  parseIngredients(): Ingredient[] {
-    const ingredients: Ingredient[] = [];
-    this.ingredients.split('\n').forEach(line => {
-      const details = line.split(' ');
-      ingredients.push({
-        uuid: uuidv4(),
-        amount: Number.parseFloat(details[0]),
-        measurement: details[1],
-        name: details[2],
-      });
-    });
-    return ingredients;
-  }
-
-  parseDirections(): Direction[] {
-    const directions: Direction[] = [];
-    this.directions.split('\n').forEach(line => {
-      let optional = false;
-      if (line.search(/optional/i) !== -1) {
-        line.replace(/optional/i, '');
-        optional = true;
-      }
-      directions.push({
-        instructions: line,
-        optional,
-      });
-    });
-    return directions;
-  }
 
   saveRecipe(): void {
     this.recipe.uuid = uuidv4();
@@ -64,9 +31,37 @@ export class AddRecipeComponent implements OnInit {
 
     this._recipeService.post(this.recipe);
 
-    console.log(this.recipe);
-
     this.saved = true;
+  }
+  
+  private parseIngredients(): Ingredient[] {
+    const ingredients: Ingredient[] = [];
+    this.ingredients.split('\n').forEach(line => {
+      const details = line.split(' ');
+      ingredients.push({
+        uuid: uuidv4(),
+        amount: Number.parseFloat(details[0]),
+        measurement: details[1],
+        name: details[2],
+      });
+    });
+    return ingredients;
+  }
+
+  private parseDirections(): Direction[] {
+    const directions: Direction[] = [];
+    this.directions.split('\n').forEach(line => {
+      let optional = false;
+      if (line.search(/optional/i) !== -1) {
+        line.replace(/optional/i, '');
+        optional = true;
+      }
+      directions.push({
+        instructions: line,
+        optional,
+      });
+    });
+    return directions;
   }
 
 }

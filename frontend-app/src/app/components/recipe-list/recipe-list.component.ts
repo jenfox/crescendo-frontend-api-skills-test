@@ -11,11 +11,14 @@ import { ApiHost } from '../../config';
 export class RecipeListComponent implements OnInit {
 
   recipes: Recipe[];
+
+  // expose ApiHost value to template
   apiHost = ApiHost;
 
   constructor(private _recipeService: RecipeService) { }
 
   ngOnInit(): void {
+    // init recipe list
     this._recipeService.getAll().subscribe(
       recipes => {
         this.recipes = recipes;

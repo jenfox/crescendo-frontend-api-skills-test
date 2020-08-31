@@ -1,6 +1,6 @@
 <form #recipeForm="ngForm" (ngSubmit)="saveRecipe()" class="recipeForm">
     <div *ngIf="saved" class="alert alert-success" role="alert">
-        Recipe Saved!
+        {{recipe.title}} Recipe Saved!
     </div>
     <h2>Add a New Recipe</h2>
     <div class="section section-large">

@@ -1,7 +1,10 @@
 <span>
     {{ingredient.amount}} {{ingredient.measurement}}
-    <span *ngIf="special;else notSpecial" class="special-ingredient" triggers="mouseenter:mouseleave" popoverTitle=""
-        [ngbPopover]="popContent" [closeDelay]="1500">
+    <span *ngIf="special;else notSpecial" 
+        class="special-ingredient" 
+        [ngbPopover]="popContent"
+        triggers="mouseenter:mouseleave"
+        placement="bottom" [closeDelay]="1500">
         {{ingredient.name}}
     </span>
     <ng-template #notSpecial>

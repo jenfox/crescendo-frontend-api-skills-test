@@ -1,3 +1,6 @@
+$card-height: 200px
+$card-width: $card-height
+
 .recipe-cards
     display: flex
     flex-wrap: wrap
@@ -7,15 +10,15 @@
 .recipe-card
     cursor: pointer
     text-align: center
-    width: 200px
-    height: 200px
+    height: $card-height
+    width: $card-height
     border: 1px solid lightgrey
     border-radius: 5px
     margin: 3px
     padding: 3px
     img
         height: 100px
-        width: 200px
+        width: $card-width
         object-fit: contain
 
 .recipe-card-add

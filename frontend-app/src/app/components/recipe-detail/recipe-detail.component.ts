@@ -22,10 +22,11 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private _activatedRoute: ActivatedRoute,
-              private _recipeService: RecipeService,
-              private _specialService: SpecialService) { }
+    private _recipeService: RecipeService,
+    private _specialService: SpecialService) { }
 
   ngOnInit(): void {
+    // get recipes and specials from API
     combineLatest([this.getRecipe(), this.getSpecials()])
       .pipe(
         takeUntil(this.destroy$),
@@ -34,6 +35,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
           this.recipe = recipe;
           this.specials = specials;
 
+          // find ingredients with matching id in the specials list
           this.recipe.ingredients.forEach(
             ingredient => {
               ingredient.special = this.findSpecial(ingredient.uuid);
