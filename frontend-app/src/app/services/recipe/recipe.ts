@@ -24,6 +24,6 @@ export class Recipe {
     cookTime: number;
     postDate: Date;
     editDate: Date;
-    ingredient: Ingredient;
+    ingredients: Ingredient[];
     directions: Direction[];
 }

@@ -1,0 +1,14 @@
+<h2>Recipes</h2>
+<div class="recipe-cards">
+    <div class="recipe-card" *ngFor="let recipe of recipes" [routerLink]="['/detail', recipe.title]"
+        [queryParams]="{uuid: recipe.uuid}">
+        <img src="{{apiHost}}/{{recipe.images.small}}">
+        <p class="font-weight-bold">{{recipe.title}}</p>
+        <p>{{recipe.description}}</p>
+
+    </div>
+    <div class="recipe-card recipe-card-add" [routerLink]="['/add']">
+        <h1>+</h1>
+        <a>Add Recipe</a>
+    </div>
+</div>
